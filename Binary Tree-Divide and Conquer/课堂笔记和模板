@@ -1,0 +1,62 @@
+
+第三章 二叉树/分治法/深度优先/广度优先
+
+3.1
+二叉树遍历（DFS）：前序遍历，中序遍历，后序遍历
+熟练掌握前，中，后序遍历的递归写法和前序遍历的非递归写法（栈）。
+
+以前序遍历为例，共有三种做法：普通递归法，分治法和非递归写法。
+
+1.普通递归法：
+public class Solution {
+    List<Integer> res=new ArrayList<>();
+    public List<Integer> preorderTraversal(TreeNode root) {
+        if(root != null) {
+            res.add(root.val);
+            inorderTraversal(root.left);
+            inorderTraversal(root.right);
+        }
+        return res;
+    }
+}
+
+2.分治法：
+pubic class Solution {
+     public List<Integer> preorderTraversal(TreeNode root) {
+         List<Integer> res = new ArrayList<>();
+         if (root == null) {
+             return res;
+         }
+         
+         ArrayList<Integer> left = preorderTraversal(root.left);
+         ArrayList<Integer> right = preorderTraversal(root.right);
+         
+         res.add(root);
+         res.addAll(left);
+         res.addAll(right);
+         return res;
+}
+3.非递归写法（栈）：
+public class Solution {
+    
+    public List<Integer> preorderTraversal(TreeNode root) {
+       Stack<TreeNode> stack = new Stack<>();
+       List<Integer> res = new ArrayList<Integer>();
+        if(root == null) {
+            return res;
+        }
+        stack.push(root);
+        while(!stack.empty()){
+            TreeNode node = stack.pop();
+            res.add(node.val);
+            if(node.right != null) {
+                stack.push(node.right);
+            }
+            if(node.left != null) {
+                stack.push(node.left);
+            }
+        }
+        return res;              
+    }
+}
+
