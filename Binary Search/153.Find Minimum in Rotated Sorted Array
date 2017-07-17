@@ -1,0 +1,27 @@
+public class Solution {
+    public int findMin(int[] nums) {
+        if(nums.length == 1) {
+            return nums[0];
+        }
+        int start = 0;
+        int end = nums.length - 1;
+        int mid;
+        while (start + 1 < end) {
+            mid = start + (end - start) / 2;
+            if (nums[mid] > nums[start]) {
+                if (nums[mid] < nums[end]) {
+                    return nums[0];
+                } else {
+                    start = mid;
+                }
+            }
+            else {
+                end = mid;
+            }
+        }
+        if(nums[end] < nums[start]) {
+            return nums[end];
+        }
+        return nums[start];
+    }
+}
