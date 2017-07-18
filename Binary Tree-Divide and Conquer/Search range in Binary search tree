@@ -1,0 +1,23 @@
+public class Solution {
+    /**
+     * @param root: The root of the binary search tree.
+     * @param k1 and k2: range k1 to k2.
+     * @return: Return all keys that k1<=key<=k2 in ascending order.
+     */
+    public ArrayList<Integer> searchRange(TreeNode root, int k1, int k2) {
+        ArrayList<Integer> res = new ArrayList<Integer>();
+        if(root == null) {
+            return res;
+        }
+        ArrayList left = searchRange(root.left, k1,  k2);
+        ArrayList right = searchRange(root.right, k1, k2);
+        
+        res.addAll(left);
+        if(root.val <= k2 && root.val >= k1) {
+            res.add(root.val);
+        }
+        res.addAll(right);
+        
+        return res;
+    }
+}
