@@ -1,0 +1,27 @@
+
+第四章 Permutation and Subsets (DFS相关)
+
+4.1 Subsets类问题模板：
+    无重复元素的subsets(例如[1,2,3]):
+    public void helper (ArrayList<ArrayList<Integer>> res, ArrayList<Integer> list, int[] nums, int pos) {
+        res.add(new ArrayList<Integer>(list));            (pos决定下次挑元素的起始位置，因为[1,2]和[2,1]是一样的，pos可以避免出现这种重复）
+        for (int i = pos; i < nums.length; i++) {
+             list.add(nums[i]);
+             helper(res, list, nums, i + 1);
+             list.remove(list.size() - 1);
+         }
+     }
+     
+     有重复元素的subsets(例如[1,2,2]):
+     Arrays.sort(nums);(先要对原数组排序，保证重复的元素位置相邻）
+     public void helper (ArrayList<ArrayList<Integer>> res, ArrayList<Integer> list, int[] nums, int pos) {
+        res.add(new ArrayList<Integer>(list));            (pos决定下次挑元素的起始位置，因为[1,2]和[2,1]是一样的，pos可以避免出现这种重复）
+        for (int i = pos; i < nums.length; i++) {
+             if (i != pos && nums[i] == nums[i - 1]) { (i != pos是为了正常加入第一个重复的元素，即本例中的第一个2，将第二个2跳过，避免出现两次[1,2]）
+                 continue;
+             }
+             list.add(nums[i]);
+             helper(res, list, nums, i+1);
+             list.remove(list.size() - 1);
+         }
+     }
