@@ -1,0 +1,32 @@
+public class Solution {
+    public ListNode reverseBetween(ListNode head, int m, int n) {
+        if (m > n || head == null) {
+            return head;
+        }
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        head = dummy;
+        for (int i=0; i < m - 1; i++) {
+            if (head == null) {
+                return null;
+            }
+            head = head.next;
+        }
+        ListNode preNode = head;
+        ListNode mNode = head.next;
+        ListNode nNode = mNode;
+        ListNode posNode = mNode.next;
+        for (int i = m; i < n; i++) {
+            if (posNode == null) {
+                return null;
+            }
+            ListNode temp = posNode.next;
+            posNode.next = nNode;
+            nNode = posNode;
+            posNode = temp;
+        }
+        preNode.next = nNode;
+        mNode.next = posNode;
+        return dummy.next;
+    }
+}
