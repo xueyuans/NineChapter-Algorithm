@@ -1,0 +1,27 @@
+public class Solution {
+    public ListNode partition(ListNode head, int x) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+        ListNode left = new ListNode(0);
+        ListNode right = new ListNode(0);
+        ListNode rightDummy = right;
+        ListNode leftDummy = left;
+        ListNode curr = head;
+        
+        while (curr != null) {
+            if (curr.val < x) {
+                left.next = curr;
+                left = left.next;
+            }
+            else {
+                right.next = curr;
+                right = right.next;
+            }
+            curr = curr.next;
+        }
+        left.next = rightDummy.next;
+        right.next = null;
+        return leftDummy.next;
+    }
+}
