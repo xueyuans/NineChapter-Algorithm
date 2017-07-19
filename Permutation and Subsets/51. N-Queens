@@ -1,0 +1,55 @@
+public class Solution {
+    public List<List<String>> solveNQueens(int n) {
+        List<List<String>> res = new ArrayList<List<String>>();
+        search(n, new ArrayList<Integer>(), res);
+        return res;
+    }
+    
+    public void search(int n, List<Integer> cols, List<List<String>> res) {
+        if (cols.size() == n) {
+            res.add(draw(cols));
+            return;
+        }
+        
+        for (int col = 0; col < n; col++) {
+            if (!isValid(cols,col)) {
+                continue;
+            }
+            cols.add(col);
+            search(n, cols, res);
+            cols.remove(cols.size()-1);
+        }
+    }
+    
+    private List<String> draw(List<Integer> cols) {
+        List<String> board = new ArrayList<>();
+        for (int i=0; i < cols.size(); i++) {
+            board.add("");
+            for (int j=0; j<cols.size(); j++) {
+                if (j == cols.get(i)) {
+                    board.set(i, board.get(i) + "Q");
+                }else {
+                    board.set(i, board.get(i) + ".");
+                }
+            }
+        }
+        return board;
+    }
+    
+    private boolean isValid(List<Integer> cols, int col) {
+        int row = cols.size();
+        for (int i=0; i < cols.size(); i++) {
+            if (cols.get(i) == col) {
+                return false;
+            }
+            if(i - cols.get(i) == row - col) {
+                return false;
+            }
+            if(i + cols.get(i) == row + col) {
+                return false;
+            }
+            
+        }
+        return true;
+    }
+}
