@@ -17,7 +17,7 @@
      public void helper (ArrayList<ArrayList<Integer>> res, ArrayList<Integer> list, int[] nums, int pos) {
         res.add(new ArrayList<Integer>(list));            (pos决定下次挑元素的起始位置，因为[1,2]和[2,1]是一样的，pos可以避免出现这种重复）
         for (int i = pos; i < nums.length; i++) {
-             if (i != pos && nums[i] == nums[i - 1]) { (i != pos是为了正常加入第一个重复的元素，即本例中的第一个2，将第二个2跳过，避免出现两次[1,2]）
+             if (i != pos && nums[i] == nums[i - 1]) {    (i != pos是为了正常加入第一个重复的元素，即本例中的第一个2，将第二个2跳过，避免出现两次[1,2]）
                  continue;
              }
              list.add(nums[i]);
@@ -25,3 +25,49 @@
              list.remove(list.size() - 1);
          }
      }
+     
+     无重复元素的Permutation(例如[1,2,3]):
+     public void helper (ArrayList<ArrayList<Integer>> res, ArrayList<Integer> list, int[] nums) {
+        if (list.size() == nums.length) {                  (去掉pos是因为在排列组合中[1,2,3]和[3,2,1]都是答案）
+            res.add(new ArrayList<Integer>(list)); 
+            return;
+        }
+        for (int i = 0; i < nums.length; i++) {
+             if (list.contains(nums[i]) {
+                 continue;
+             }
+             list.add(nums[i]);
+             helper(res, list, nums);
+             list.remove(list.size() - 1);
+         }
+     }
+     
+     有重复元素的Permutation(例如[1,2,2]):
+     Arrays.sort(nums);
+     boolean[] visited = new boolean[nums.length];
+     public void helper (ArrayList<ArrayList<Integer>> res, ArrayList<Integer> list, int[] nums, boolean[] visited) {
+        if (list.size() == nums.length) {                  (去掉pos是因为在排列组合中[1,2,3]和[3,2,1]都是答案）
+            res.add(new ArrayList<Integer>(list)); 
+            return;
+        }
+        
+        for (int i = 0; i < nums.length; i++) {
+            if (visited[i] || i != 0 && nums[i] == nums[i - 1] && !visited[i - 1]) {
+                continue;
+            }
+            visited[i] = true;
+             list.add(nums[i]);
+             helper(res, list, nums, visited);
+             list.remove(list.size() - 1);
+             visited[i] = false;
+         }
+     }
+     
+排列组合问题关键点：
+1.Arrays.sort()去重
+2.result.add()什么时候输出结果
+3.if(condition) {continue} 什么时候跳过
+
+4.2 N皇后问题
+
+     
