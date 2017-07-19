@@ -1,0 +1,35 @@
+public class Solution {
+     ListNode current;
+    public TreeNode sortedListToBST(ListNode head) {
+       
+        if (head == null) {
+            return null;
+        }
+        current = head;
+        int size = getLength(head);
+        return helper(size);
+    }
+    
+    private int getLength(ListNode head) {
+        ListNode node = head;
+        int size = 0;
+        while (node != null) {
+            node = node.next;
+            size ++;
+        }
+        return size;
+    }
+    private TreeNode helper(int size) {
+        if (size <= 0) {
+            return null;
+        }
+        TreeNode left = helper(size / 2);
+        TreeNode root = new TreeNode(current.val);
+        current = current.next;
+        TreeNode right = helper(size - 1 - size / 2);
+        
+        root.left = left;
+        root.right = right;
+        return root;
+    }
+}
