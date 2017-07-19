@@ -1,5 +1,5 @@
 
-第四章 Permutation and Subsets (DFS相关)
+第四章 Permutation and Subsets (DFS，回溯法相关)
 
 4.1 Subsets类问题模板：
     无重复元素的subsets(例如[1,2,3]):
@@ -69,5 +69,59 @@
 3.if(condition) {continue} 什么时候跳过
 
 4.2 N皇后问题
-
-     
+对于N皇后这样较为复杂的程序，要注意程序的模块化，不要把所有功能都写在一起。
+课程中将N皇后分为四个模块:
+主函数模块
+public List<List<String>> solveNQueens(int n) {
+        List<List<String>> res = new ArrayList<List<String>>();
+        search(n, new ArrayList<Integer>(), res);
+        return res;
+    }
+判定模块（判断新皇后和已有的皇后之间是否会发生冲突）
+private boolean isValid(List<Integer> cols, int col) {
+        int row = cols.size();
+        for (int i=0; i < cols.size(); i++) {
+            if (cols.get(i) == col) {
+                return false;
+            }
+            if(i - cols.get(i) == row - col) {
+                return false;
+            }
+            if(i + cols.get(i) == row + col) {
+                return false;
+            }
+            
+        }
+        return true;
+    }
+ 查找模块（回溯法遍历）
+ public void search(int n, List<Integer> cols, List<List<String>> res) {
+        if (cols.size() == n) {
+            res.add(draw(cols));
+            return;
+        }
+        
+        for (int col = 0; col < n; col++) {
+            if (!isValid(cols, col)) {
+                continue;
+            }
+            cols.add(col);
+            search(n, cols, res);
+            cols.remove(cols.size() - 1);
+        }
+    }
+绘图模块（画出棋盘）
+    private List<String> draw(List<Integer> cols) {
+        List<String> board = new ArrayList<>();
+        for (int i=0; i < cols.size(); i++) {
+            board.add("");
+            for (int j=0; j<cols.size(); j++) {
+                if (j == cols.get(i)) {
+                    board.set(i, board.get(i) + "Q");
+                }else {
+                    board.set(i, board.get(i) + ".");
+                }
+            }
+        }
+        return board;
+    } 
