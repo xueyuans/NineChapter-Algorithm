@@ -13,3 +13,13 @@
  pos.next = prev;
  prev = pos;
  pos = temp;
+
+
+5.3 快慢指针法找链表中点
+  ListNode slow = head, fast = head.next;
+  while (fast != null && fast.next != null) {
+      fast = fast.next.next;
+      slow = slow.next;
+  }
+  return slow;
+  如果节点数为偶数，则slow为第(节点数/2)个节点（即在左半边）。
