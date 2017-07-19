@@ -23,3 +23,9 @@
   }
   return slow;
   如果节点数为偶数，则slow为第(节点数/2)个节点（即在左半边）。
+
+5.4 防止递归死循环 （保证每次递归调用后问题的规模越来越小）
+Binary Tree： leftTree, rightTree
+Array: 数组越来越小
+LinkedList: 链表越来越短
+permutations: n个数的排列组合->n - 1个数
