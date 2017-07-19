@@ -1,0 +1,51 @@
+public class Solution {
+    public RandomListNode copyRandomList(RandomListNode head) {
+        if (head == null) {
+            return null;
+        }
+        copyList(head);
+        copyRandom(head);
+        return split(head);
+    }
+    
+    private void copyList(RandomListNode head) {
+        RandomListNode node = head;
+        while (node != null) {
+          
+            RandomListNode copy = new RandomListNode(node.label);
+            copy.random = node.random;
+            copy.next = node.next;
+            node.next = copy;
+            node = node.next.next;
+        }
+
+    }
+    
+    private void copyRandom(RandomListNode head) {
+        RandomListNode node = head;
+        while (node != null) {
+            if(node.next.random != null) {
+                 node.next.random = node.random.next;                               
+            }
+            node = node.next.next;
+           
+        }
+   
+    }
+    
+    private RandomListNode split(RandomListNode head) {
+        RandomListNode newNode = head.next;
+        RandomListNode curr = head;
+        while (curr != null) {
+            RandomListNode temp = curr.next;
+            curr.next = curr.next.next;
+            curr = curr.next;
+            if (temp.next != null) {
+                 temp.next = temp.next.next;
+            }
+           
+ 
+        }
+        return newNode;
+    }
+}
