@@ -1,0 +1,30 @@
+
+第六章 Dynamic Programming
+
+需要使用DP的标志：
+    1 找最大，最小的结果
+    2 决定一件事情是否可能
+    3 计算一共有多少种可能的情况
+    
+DP的四种类型：
+    1.Matix DP 矩阵动态规划 
+                1.Minimum Path Sum 2.Triangle  3.Unique Path I II
+    2.Sequence DP  序列动规
+                1.Climbing Stairs 2.Decode Ways  3.Jump Game I II  4.Palindrome Partitioning II  5.Word Break
+    3.Two Sequence DP  双序列动规
+                1.Distict Subsequences  2. Edit Distance  3.Interleaving String
+    4.Interval DP  区间动规（不常考）
+    
+动态规划的五个要素
+    1.初始化，为状态转移公式提供最底层的初始值。常见的如对矩阵的第一行和第一列赋值, LIS中f[1...n] = 1。
+    
+    2.status,状态。例如矩阵动规中的f[i][j]表示从矩阵的1,1点走到i,j点。。。。,序列动规中的f[i]表示前i个序列元素。。。。。，双序列动规表示
+    第一个序列的前i个匹配到第二个序列的前j个。。。。区间动规f[i][j]表示区间i - j。。。。。。
+    
+    3.转移方程式，例如LCS：f[i][j] = max(f[i - 1][j], f[i][j - 1], f[i - 1][j - 1] + 1)
+                     LIS:f[i] = max(f[j] + 1,当a[i] > a[j])
+                     分析最后一次划分/最后一个字符/......
+                     
+    4.Answer答案：例如LIS是max(f[i]). LCS是f[n][m]，n和m是两个字符串长度
+    
+    5.LOOP循环
