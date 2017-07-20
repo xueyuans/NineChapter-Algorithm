@@ -1,0 +1,32 @@
+public class Solution {
+    private int getLength (List<String> wordDict) {
+        int maxLength = 0;
+        for (int i = 0; i < wordDict.size(); i++) {
+            maxLength = Math.max (maxLength, wordDict.get(i).length());
+        }
+        return maxLength;
+    }
+    public boolean wordBreak(String s, List<String> wordDict) {
+        if (s == null || s.length() == 0) {
+            return false;
+        }
+        int length = getLength(wordDict);
+        boolean[] can = new boolean[s.length()+1];
+        can[0] = true;
+        for (int i = 1; i <= s.length(); i++) {
+            can[i] = false;
+            for (int j = 1; j <= i && j <= length; j++) {
+                if (!can[i - j]) {
+                    continue;
+                }
+                String word = s.substring(i - j, i);
+                if (wordDict.contains(word)) {
+                   can[i] = true; 
+                    break;
+                }
+                    
+            }
+        }
+        return can[s.length()];
+    }
+}
