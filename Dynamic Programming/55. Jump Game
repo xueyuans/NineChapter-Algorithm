@@ -1,0 +1,17 @@
+public class Solution {
+    public boolean canJump(int[] nums) {
+        boolean[] can = new boolean[nums.length];
+        can[0] = true;
+        for (int i = 0; i < nums.length; i++) {
+            for (int j = 0; j < i; j++) {
+                if(can[j] && j + nums[j] >= i) {
+                    can[i] = true;
+                    break;
+                }
+            }
+        }
+        return can[nums.length - 1];
+    }
+}
+
+//这题出的有bug,怎么做都TLE，求不TLE的方法
