@@ -32,8 +32,11 @@
 13.	        int low = 0;
 14.	        int high = nums.length - 1;
 15.	        while (low + 1 < high){
-16.	            int mid = (low + high) / 2;
-17.	            if (target <= nums[mid]){
+16.	            int mid = low + (high - low) / 2;
+                if (target == nums[mid]) {
+                    return mid;
+                }
+17.	            else if (target < nums[mid]){
 18.	                high = mid;
 19.	            } else {
 20.	                low = mid;
